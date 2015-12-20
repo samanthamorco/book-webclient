@@ -1,0 +1,9 @@
+  <h1><%= @book.title %></h1>
+<ul>
+  <li>By: <%= @book.author_first_name %> <%= @book.author_last_name %></li>
+  <li>Page Count: <%= @book.page_count %></li>
+  <li>Rating: <%= @book.rating %></li>
+  <li>Genre: <%= @book.genre %></li>
+</ul>
+
+<%= link_to "Delete Me", "/books/#{params[:id]}", method: :delete %>

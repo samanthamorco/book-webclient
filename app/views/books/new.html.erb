@@ -1,0 +1,19 @@
+<%= form_tag "/books" do %>
+
+<div>
+  <%= label_tag "title" %>
+  <%= text_field_tag "title" %>
+</div>
+<div>
+  <%= label_tag "author_first_name" %>
+  <%= text_field_tag "author_first_name" %>
+</div>
+
+<div>
+  <%= label_tag "author_last_name" %>
+  <%= text_field_tag "author_last_name" %>
+</div>
+
+<%= submit_tag "Create Book" %>
+
+<% end %>
