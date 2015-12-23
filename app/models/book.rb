@@ -12,32 +12,32 @@ class Book
     @id = hash["id"]
   end
 
-  def self.find(id)
-    book_hash = Unirest.get("http://localhost:3000/api/v1/books/#{id}.json").body
-    @book = Book.new(book_hash)
-    return @book
-  end
-
   def self.all
     books = []
-    books_hash = Unirest.get("http://localhost:3000/api/v1/books.json").body
+    books_hash = Unirest.get("#{ENV['API_BASE_URL']}/books.json", headers: {"X-User-Email": "test@gmail.com", "Authorization": "Token token=ABC123"}).body
     books_hash.each do |book|
       books << Book.new(book)
     end
     return books
   end
 
+  def self.find(id)
+    book_hash = Unirest.get("#{ENV['API_BASE_URL']}/books/#{id}.json", headers: {"X-User-Email": "test@gmail.com", "Authorization": "Token token=ABC123"}).body
+    @book = Book.new(book_hash)
+    return @book
+  end
+
   def destroy
-    Unirest.delete("http://localhost:3000/api/v1/books/#{id}.json").body
+    Unirest.delete("#{ENV['API_BASE_URL']}/books/#{id}.json", headers: {"X-User-Email": "test@gmail.com", "Authorization": "Token token=ABC123"}).body
   end
 
   def self.create(attributes)
-    book_hash = Unirest.post("http://localhost:3000/api/v1/books.json", headers: {"Accept" => "application/json"}, parameters: attributes).body
+    book_hash = Unirest.post("#{ENV['API_BASE_URL']}/books.json", headers: {"Accept" => "application/json", "X-User-Email": "test@gmail.com", "Authorization": "Token token=ABC123"}, parameters: attributes).body
     Book.new(book_hash)
   end
 
   def update(attributes)
-    book_hash = Unirest.patch("http://localhost:3000/api/v1/books/#{id}.json", headers: {"Accept" => "application/json"}, parameters: attributes).body
+    book_hash = Unirest.patch("#{ENV['API_BASE_URL']}/books/#{id}.json", headers: {"Accept" => "application/json", "X-User-Email": "test@gmail.com", "Authorization": "Token token=ABC123"}, parameters: attributes).body
     Book.new(book_hash)
   end
 
